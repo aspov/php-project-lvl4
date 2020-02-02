@@ -21,7 +21,7 @@ Rollbar::init(
 */
 
 Route::get('/', function () {
-    Rollbar::log(Level::info(), 'Test info message');
-    throw new Exception('Test exception');
+    #Rollbar::log(Level::info(), 'Test info message');
+    #throw new Exception('Test exception');
     return view('welcome');
 });

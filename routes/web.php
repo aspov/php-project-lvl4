@@ -1,5 +1,14 @@
 <?php
 
+use Rollbar\Rollbar;
+use Rollbar\Payload\Level;
+
+Rollbar::init(
+    array(
+        'access_token' => '45c4f29d2a0242e89b5b523d27d7d7af',
+        'environment' => 'production'
+    )
+);
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +21,7 @@
 */
 
 Route::get('/', function () {
+    Rollbar::log(Level::info(), 'Test info message');
+    throw new Exception('Test exception');
     return view('welcome');
 });

@@ -68,7 +68,7 @@ return [
             'url' => env('DATABASE_URL'),
             'host' => env('DB_HOST', 'ec2-34-192-30-15.compute-1.amazonaws.com'),
             'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'ddk4dcjm79no2q'),
+            'database' => ltrim($DATABASE_URL["path"], "/"),
             'username' => env('DB_USERNAME', 'vvzcfqtnpbswcz'),
             'password' => env('DB_PASSWORD', '02893ce0f112969ec58b131b870af351072c07c5f606844c26b864a3af771ee0'),
             'charset' => 'utf8',

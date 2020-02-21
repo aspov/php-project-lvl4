@@ -20,8 +20,18 @@ Rollbar::init(
 |
 */
 
-Route::get('/', function () {
-    #Rollbar::log(Level::info(), 'Test info message');
-    #throw new Exception('Test exception');
-    return view('welcome');
-});
+
+Route::get('/', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::resource('/users', 'UserController')->only([
+    'index', 'show'
+]);
+
+Route::resource('/my/account', 'MyAccountController')->except([
+    'create', 'store'
+]);
+
+#DB::select("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
+

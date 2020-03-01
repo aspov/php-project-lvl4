@@ -8,11 +8,17 @@ use App\User;
 
 class MyAccountControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
+    public function testAuth()
+    {
+        $response = $this->get(route('account.index'));
+        $response->assertRedirect(route('login'));
+    }
+
     public function testIndex()
     {
         $user = factory(User::class)->create();
-        $response = $this->get(route('account.index'));
-        $response->assertStatus(302);
         $response = $this->actingAs($user)->get(route('account.index'));
         $response->assertRedirect(route('account.show', $user->name));
     }
@@ -20,8 +26,6 @@ class MyAccountControllerTest extends TestCase
     public function testEdit()
     {
         $user = factory(User::class)->create();
-        $response = $this->get(route('account.edit', $user));
-        $response->assertStatus(302);
         $response = $this->actingAs($user)->get(route('account.edit', $user));
         $response->assertStatus(200);
     }
@@ -34,14 +38,15 @@ class MyAccountControllerTest extends TestCase
             'email' => $user->email
         ]);
         $response->assertStatus(200);
-        $updateUser = factory(User::class)->make();
+        $userForUpdate = factory(User::class)->make();
         $response = $this->actingAs($user)->json('PUT', route('account.update', $user), [
-            'name' => $updateUser->name,
-            'email' => $updateUser->email,
+            'name' => $userForUpdate->name,
+            'email' => $userForUpdate->email,
         ]);
         $response->assertStatus(200);
+        $response->assertSee($userForUpdate->name);
         $savedUser = User::find($user->id);
-        $this->assertEquals($updateUser->name, $savedUser->name);
+        $this->assertEquals($userForUpdate->name, $savedUser->name);
     }
 
     public function testDestroy()

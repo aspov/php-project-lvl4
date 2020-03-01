@@ -32,6 +32,9 @@ Route::resource('/users', 'UserController')->only([
 Route::resource('/my/account', 'MyAccountController')->except([
     'create', 'store'
 ]);
+Route::resource('/tasks/task_statuses', 'TaskStatusController');
+Route::resource('/tasks', 'TaskController');
+
 
 #DB::select("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
 

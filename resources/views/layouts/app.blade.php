@@ -40,6 +40,9 @@
                             <a class="nav-link" href="{{ route('home') }}">Home </a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('tasks.index') }}">Tasks </a>
+                        </li>
+                        <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('users.index') }}">Users </a>
                         </li>
                     </ul>

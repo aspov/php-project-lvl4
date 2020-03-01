@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1582293784">
-  <project timestamp="1582293784">
+<coverage generated="1583086057">
+  <project timestamp="1583086057">
     <package name="App\Console">
       <file name="/home/aspov/project4/app/Console/Kernel.php">
         <class name="App\Console\Kernel" namespace="App\Console">
@@ -8,10 +8,10 @@
         </class>
         <line num="25" type="method" name="schedule" visibility="protected" complexity="1" crap="2" count="0"/>
         <line num="29" type="stmt" count="0"/>
-        <line num="36" type="method" name="commands" visibility="protected" complexity="1" crap="1" count="7"/>
-        <line num="38" type="stmt" count="7"/>
-        <line num="40" type="stmt" count="7"/>
-        <line num="41" type="stmt" count="7"/>
+        <line num="36" type="method" name="commands" visibility="protected" complexity="1" crap="1" count="16"/>
+        <line num="38" type="stmt" count="16"/>
+        <line num="40" type="stmt" count="16"/>
+        <line num="41" type="stmt" count="16"/>
         <metrics loc="42" ncloc="20" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="3" elements="6" coveredelements="4"/>
       </file>
     </package>
@@ -105,17 +105,17 @@
         <class name="App\Http\Controllers\HomeController" namespace="App\Http\Controllers">
           <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
         </class>
-        <line num="14" type="method" name="index" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="16" type="stmt" count="1"/>
+        <line num="14" type="method" name="index" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="16" type="stmt" count="2"/>
         <metrics loc="18" ncloc="13" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </file>
       <file name="/home/aspov/project4/app/Http/Controllers/MyAccountController.php">
         <class name="App\Http\Controllers\MyAccountController" namespace="App\Http\Controllers">
           <metrics complexity="6" methods="6" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="16" elements="23" coveredelements="21"/>
         </class>
-        <line num="12" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="4"/>
-        <line num="14" type="stmt" count="4"/>
-        <line num="15" type="stmt" count="4"/>
+        <line num="12" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="6"/>
+        <line num="14" type="stmt" count="6"/>
+        <line num="15" type="stmt" count="6"/>
         <line num="17" type="method" name="index" visibility="public" complexity="1" crap="1" count="1"/>
         <line num="19" type="stmt" count="1"/>
         <line num="22" type="method" name="show" visibility="public" complexity="1" crap="2" count="0"/>
@@ -132,11 +132,69 @@
         <line num="41" type="stmt" count="1"/>
         <line num="42" type="stmt" count="1"/>
         <line num="43" type="stmt" count="1"/>
-        <line num="46" type="method" name="destroy" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="48" type="stmt" count="1"/>
-        <line num="49" type="stmt" count="1"/>
-        <line num="50" type="stmt" count="1"/>
+        <line num="46" type="method" name="destroy" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="48" type="stmt" count="2"/>
+        <line num="49" type="stmt" count="2"/>
+        <line num="50" type="stmt" count="2"/>
         <metrics loc="52" ncloc="52" classes="1" methods="6" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="16" elements="23" coveredelements="21"/>
+      </file>
+      <file name="/home/aspov/project4/app/Http/Controllers/TaskController.php">
+        <class name="App\Http\Controllers\TaskController" namespace="App\Http\Controllers">
+          <metrics complexity="8" methods="8" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="0" elements="17" coveredelements="0"/>
+        </class>
+        <line num="10" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="12" type="stmt" count="0"/>
+        <line num="13" type="stmt" count="0"/>
+        <line num="19" type="method" name="index" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="21" type="stmt" count="0"/>
+        <line num="29" type="method" name="create" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="32" type="stmt" count="0"/>
+        <line num="40" type="method" name="store" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="43" type="stmt" count="0"/>
+        <line num="51" type="method" name="show" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="54" type="stmt" count="0"/>
+        <line num="62" type="method" name="edit" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="65" type="stmt" count="0"/>
+        <line num="74" type="method" name="update" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="77" type="stmt" count="0"/>
+        <line num="85" type="method" name="destroy" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="88" type="stmt" count="0"/>
+        <metrics loc="89" ncloc="36" classes="1" methods="8" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="0" elements="17" coveredelements="0"/>
+      </file>
+      <file name="/home/aspov/project4/app/Http/Controllers/TaskStatusController.php">
+        <class name="App\Http\Controllers\TaskStatusController" namespace="App\Http\Controllers">
+          <metrics complexity="8" methods="8" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="17" elements="29" coveredelements="23"/>
+        </class>
+        <line num="10" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="6"/>
+        <line num="12" type="stmt" count="6"/>
+        <line num="13" type="stmt" count="6"/>
+        <line num="15" type="method" name="index" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="17" type="stmt" count="1"/>
+        <line num="18" type="stmt" count="1"/>
+        <line num="21" type="method" name="create" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="23" type="stmt" count="1"/>
+        <line num="26" type="method" name="store" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="28" type="stmt" count="1"/>
+        <line num="29" type="stmt" count="1"/>
+        <line num="32" type="stmt" count="1"/>
+        <line num="33" type="stmt" count="1"/>
+        <line num="34" type="stmt" count="1"/>
+        <line num="36" type="stmt" count="1"/>
+        <line num="37" type="stmt" count="1"/>
+        <line num="41" type="method" name="show" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="43" type="stmt" count="1"/>
+        <line num="46" type="method" name="edit" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="49" type="stmt" count="0"/>
+        <line num="51" type="method" name="update" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="53" type="stmt" count="1"/>
+        <line num="54" type="stmt" count="1"/>
+        <line num="55" type="stmt" count="1"/>
+        <line num="56" type="stmt" count="1"/>
+        <line num="59" type="method" name="destroy" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="61" type="stmt" count="0"/>
+        <line num="62" type="stmt" count="0"/>
+        <line num="63" type="stmt" count="0"/>
+        <metrics loc="65" ncloc="63" classes="1" methods="8" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="21" coveredstatements="17" elements="29" coveredelements="23"/>
       </file>
       <file name="/home/aspov/project4/app/Http/Controllers/UserController.php">
         <class name="App\Http\Controllers\UserController" namespace="App\Http\Controllers">
@@ -215,19 +273,19 @@
         <class name="App\Providers\AppServiceProvider" namespace="App\Providers">
           <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
         </class>
-        <line num="14" type="method" name="register" visibility="public" complexity="1" crap="1" count="7"/>
-        <line num="17" type="stmt" count="7"/>
-        <line num="24" type="method" name="boot" visibility="public" complexity="1" crap="1" count="7"/>
-        <line num="27" type="stmt" count="7"/>
+        <line num="14" type="method" name="register" visibility="public" complexity="1" crap="1" count="16"/>
+        <line num="17" type="stmt" count="16"/>
+        <line num="24" type="method" name="boot" visibility="public" complexity="1" crap="1" count="16"/>
+        <line num="27" type="stmt" count="16"/>
         <metrics loc="28" ncloc="14" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
       </file>
       <file name="/home/aspov/project4/app/Providers/AuthServiceProvider.php">
         <class name="App\Providers\AuthServiceProvider" namespace="App\Providers">
           <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
         </class>
-        <line num="24" type="method" name="boot" visibility="public" complexity="1" crap="1" count="7"/>
-        <line num="26" type="stmt" count="7"/>
-        <line num="29" type="stmt" count="7"/>
+        <line num="24" type="method" name="boot" visibility="public" complexity="1" crap="1" count="16"/>
+        <line num="26" type="stmt" count="16"/>
+        <line num="29" type="stmt" count="16"/>
         <metrics loc="30" ncloc="16" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
       </file>
       <file name="/home/aspov/project4/app/Providers/BroadcastServiceProvider.php">
@@ -244,37 +302,55 @@
         <class name="App\Providers\EventServiceProvider" namespace="App\Providers">
           <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
         </class>
-        <line num="28" type="method" name="boot" visibility="public" complexity="1" crap="1" count="7"/>
-        <line num="30" type="stmt" count="7"/>
-        <line num="33" type="stmt" count="7"/>
+        <line num="28" type="method" name="boot" visibility="public" complexity="1" crap="1" count="16"/>
+        <line num="30" type="stmt" count="16"/>
+        <line num="33" type="stmt" count="16"/>
         <metrics loc="34" ncloc="22" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="3" coveredelements="3"/>
       </file>
       <file name="/home/aspov/project4/app/Providers/RouteServiceProvider.php">
         <class name="App\Providers\RouteServiceProvider" namespace="App\Providers">
           <metrics complexity="4" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="14" coveredstatements="14" elements="18" coveredelements="18"/>
         </class>
-        <line num="31" type="method" name="boot" visibility="public" complexity="1" crap="1" count="7"/>
-        <line num="34" type="stmt" count="7"/>
-        <line num="35" type="stmt" count="7"/>
-        <line num="42" type="method" name="map" visibility="public" complexity="1" crap="1" count="7"/>
-        <line num="44" type="stmt" count="7"/>
-        <line num="46" type="stmt" count="7"/>
-        <line num="49" type="stmt" count="7"/>
-        <line num="58" type="method" name="mapWebRoutes" visibility="protected" complexity="1" crap="1" count="7"/>
-        <line num="60" type="stmt" count="7"/>
-        <line num="61" type="stmt" count="7"/>
-        <line num="62" type="stmt" count="7"/>
-        <line num="63" type="stmt" count="7"/>
-        <line num="72" type="method" name="mapApiRoutes" visibility="protected" complexity="1" crap="1" count="7"/>
-        <line num="74" type="stmt" count="7"/>
-        <line num="75" type="stmt" count="7"/>
-        <line num="76" type="stmt" count="7"/>
-        <line num="77" type="stmt" count="7"/>
-        <line num="78" type="stmt" count="7"/>
+        <line num="31" type="method" name="boot" visibility="public" complexity="1" crap="1" count="16"/>
+        <line num="34" type="stmt" count="16"/>
+        <line num="35" type="stmt" count="16"/>
+        <line num="42" type="method" name="map" visibility="public" complexity="1" crap="1" count="16"/>
+        <line num="44" type="stmt" count="16"/>
+        <line num="46" type="stmt" count="16"/>
+        <line num="49" type="stmt" count="16"/>
+        <line num="58" type="method" name="mapWebRoutes" visibility="protected" complexity="1" crap="1" count="16"/>
+        <line num="60" type="stmt" count="16"/>
+        <line num="61" type="stmt" count="16"/>
+        <line num="62" type="stmt" count="16"/>
+        <line num="63" type="stmt" count="16"/>
+        <line num="72" type="method" name="mapApiRoutes" visibility="protected" complexity="1" crap="1" count="16"/>
+        <line num="74" type="stmt" count="16"/>
+        <line num="75" type="stmt" count="16"/>
+        <line num="76" type="stmt" count="16"/>
+        <line num="77" type="stmt" count="16"/>
+        <line num="78" type="stmt" count="16"/>
         <metrics loc="79" ncloc="39" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="14" coveredstatements="14" elements="18" coveredelements="18"/>
       </file>
     </package>
     <package name="App">
+      <file name="/home/aspov/project4/app/Tag.php">
+        <class name="App\Tag" namespace="App">
+          <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+        </class>
+        <metrics loc="10" ncloc="8" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </file>
+      <file name="/home/aspov/project4/app/Task.php">
+        <class name="App\Task" namespace="App">
+          <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+        </class>
+        <metrics loc="10" ncloc="8" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </file>
+      <file name="/home/aspov/project4/app/TaskStatus.php">
+        <class name="App\TaskStatus" namespace="App">
+          <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+        </class>
+        <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </file>
       <file name="/home/aspov/project4/app/User.php">
         <class name="App\User" namespace="App">
           <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
@@ -282,6 +358,6 @@
         <metrics loc="39" ncloc="24" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
       </file>
     </package>
-    <metrics files="26" loc="925" ncloc="564" classes="16" methods="32" coveredmethods="19" conditionals="0" coveredconditionals="0" statements="77" coveredstatements="48" elements="109" coveredelements="67"/>
+    <metrics files="31" loc="1111" ncloc="691" classes="18" methods="48" coveredmethods="25" conditionals="0" coveredconditionals="0" statements="107" coveredstatements="65" elements="155" coveredelements="90"/>
   </project>
 </coverage>

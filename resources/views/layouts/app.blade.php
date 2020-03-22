@@ -8,24 +8,25 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="csrf-param" content="_token" />
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Task Manager') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Task Manager') }}
                 </a>                
                     
        
@@ -37,13 +38,13 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('home') }}">Home </a>
+                            <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('tasks.index') }}">Tasks </a>
+                            <a class="nav-link" href="{{ route('tasks.index') }}">{{ __('Tasks') }}</a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('users.index') }}">Users </a>
+                            <a class="nav-link" href="{{ route('users.index') }}">{{ __('Users') }}</a>
                         </li>
                     </ul>
 
@@ -78,7 +79,7 @@
                                 </div>
                             </li>
                            
-                           <a class="nav-link" href="{{ route('account.index') }}">My account</a>
+                           <a class="nav-link" href="{{ route('account.index') }}">{{ __('My account') }}</a>
                         @endguest
                     </ul>
                 </div>
@@ -86,10 +87,15 @@
         </nav>
 
         <main class="py-4">
-            <div class="text-center"> @include('flash::message')</div>
+            <div class="text-center">@include('flash::message')</div>
             @yield('content')
-        </main>
-    </div>
-    
+        </main>    
+     
+    <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+          $(".alert").delay(1500).slideUp(300);
+    });
+</script> 
 </body>
 </html>

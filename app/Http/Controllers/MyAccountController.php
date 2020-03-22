@@ -39,14 +39,14 @@ class MyAccountController extends Controller
         ])->validate();
         $user->fill($request->all());
         $user->save();
-        flash('Saved')->success();
+        flash(__('Saved'))->success();
         return view('my_account.edit');
     }
     
     public function destroy(User $user)
     {
         \App\User::destroy(\Auth::user()->id);
-        flash('Deleted')->success();
+        flash(__('Deleted'))->success();
         return redirect()->route('home');
     }
 }

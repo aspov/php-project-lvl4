@@ -41,6 +41,6 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        flash('You are logged in!')->success();
+        flash(__('logged'))->success();
     }
 }

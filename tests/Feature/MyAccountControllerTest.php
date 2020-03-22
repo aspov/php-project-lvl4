@@ -38,15 +38,15 @@ class MyAccountControllerTest extends TestCase
             'email' => $user->email
         ]);
         $response->assertStatus(200);
-        $userForUpdate = factory(User::class)->make();
+        $changedUser = factory(User::class)->make();
         $response = $this->actingAs($user)->json('PUT', route('account.update', $user), [
-            'name' => $userForUpdate->name,
-            'email' => $userForUpdate->email,
+            'name' => $changedUser->name,
+            'email' => $changedUser->email,
         ]);
         $response->assertStatus(200);
-        $response->assertSee($userForUpdate->name);
+        $response->assertSee($changedUser->name);
         $savedUser = User::find($user->id);
-        $this->assertEquals($userForUpdate->name, $savedUser->name);
+        $this->assertEquals($changedUser->name, $savedUser->name);
     }
 
     public function testDestroy()
@@ -54,7 +54,6 @@ class MyAccountControllerTest extends TestCase
         $user = factory(User::class)->create();
         $response = $this->actingAs($user)->delete(route('account.destroy', $user));
         $response->assertStatus(302);
-        $deletedUser = User::find($user->id);
-        $this->assertNull($deletedUser);
+        $this->assertDatabaseMissing('users', ['id', $user->id]);
     }
 }

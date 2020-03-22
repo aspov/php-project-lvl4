@@ -26,40 +26,34 @@ class TaskStatusController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required|unique:task_statuses'
         ]);
 
         $taskStatus = new TaskStatus();
         $taskStatus->fill($request->all());
         $taskStatus->save();
-
-        flash('Added')->success();
+        flash(__('Added'))->success();
+        #dd(session('flash_notification'));
         return redirect()->route('task_statuses.index');
-    }
-
-    
-    public function show(TaskStatus $taskStatus)
-    {
-        return view('task.status.show', compact('taskStatus'));
     }
 
     public function edit(TaskStatus $taskStatus)
     {
-        //
+        return view('task.status.edit', compact('taskStatus'));
     }
     
     public function update(Request $request, TaskStatus $taskStatus)
     {
         $taskStatus->fill($request->all());
         $taskStatus->save();
-        flash('Saved')->success();
+        flash(__('Saved'))->success();
         return redirect()->route('task_statuses.index');
     }
   
     public function destroy(TaskStatus $taskStatus)
     {
         $taskStatus->delete();
-        flash('Deleted')->success();
+        flash(__('Deleted'))->success();
         return redirect()->route('task_statuses.index');
     }
 }

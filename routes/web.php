@@ -1,14 +1,5 @@
 <?php
 
-use Rollbar\Rollbar;
-use Rollbar\Payload\Level;
-
-Rollbar::init(
-    array(
-        'access_token' => '45c4f29d2a0242e89b5b523d27d7d7af',
-        'environment' => 'production'
-    )
-);
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,19 +13,9 @@ Rollbar::init(
 
 
 Route::get('/', 'HomeController@index')->name('home');
-
 Auth::routes();
-
-Route::resource('/users', 'UserController')->only([
-    'index', 'show'
-]);
-
-Route::resource('/my/account', 'MyAccountController')->except([
-    'create', 'store'
-]);
-Route::resource('/tasks/task_statuses', 'TaskStatusController');
+Route::resource('/users', 'UserController')->only(['index', 'show']);
+Route::resource('/my/account', 'MyAccountController')->except(['create', 'store']);
+Route::resource('/tasks/task_statuses', 'TaskStatusController')->except(['show']);
 Route::resource('/tasks', 'TaskController');
-
-
-#DB::select("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
-
+Route::resource('/tasks.tags', 'TaskTagController')->only(['store', 'destroy']);

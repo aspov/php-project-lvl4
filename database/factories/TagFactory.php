@@ -2,11 +2,11 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\TaskStatus;
+use App\Tag;
 use Faker\Generator as Faker;
 
-$factory->define(TaskStatus::class, function (Faker $faker) {
+$factory->define(Tag::class, function (Faker $faker) {
     return [
-        'name' => $faker->text
+        'name' => $faker->name
     ];
 });

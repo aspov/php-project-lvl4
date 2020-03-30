@@ -7,19 +7,12 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="csrf-param" content="_token" />
-
-    <title>{{ config('app.name', 'Task Manager') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    
+    <title>{{ config('app.name', 'Task Manager') }}</title>   
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">   
+    <script src="{{ asset('js/app.js') }}" defer></script>    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    
 </head>
 <body>
     <div id="app">
@@ -42,6 +35,9 @@
                         </li>
                         <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('tasks.index') }}">{{ __('Tasks') }}</a>
+                        </li>
+                        <li class="nav-item {{ request()->routeIs('task_statuses.index') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('task_statuses.index') }}">{{ __('Statuses') }}</a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('users.index') }}">{{ __('Users') }}</a>

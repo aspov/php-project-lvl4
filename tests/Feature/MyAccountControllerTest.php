@@ -33,26 +33,24 @@ class MyAccountControllerTest extends TestCase
     public function testUpdate()
     {
         $user = factory(User::class)->create();
-        $response = $this->actingAs($user)->json('PUT', route('account.update', $user), [
-            'name' => $user->name,
-            'email' => $user->email
-        ]);
+        $userData = \Arr::only($user->toArray(), ['name', 'email']);
+        $response = $this->actingAs($user)->patch(route('account.update', $user), $userData);
+        $response->assertSessionHasNoErrors();
         $response->assertStatus(200);
-        $changedUser = factory(User::class)->make();
-        $response = $this->actingAs($user)->json('PUT', route('account.update', $user), [
-            'name' => $changedUser->name,
-            'email' => $changedUser->email,
-        ]);
+        
+        $updatedUser = factory(User::class)->make();
+        $updatedUserData = \Arr::only($updatedUser->toArray(), ['name', 'email']);
+        $response = $this->actingAs($user)->patch(route('account.update', $user), $updatedUserData);
+        $response->assertSessionHasNoErrors();
         $response->assertStatus(200);
-        $response->assertSee($changedUser->name);
-        $savedUser = User::find($user->id);
-        $this->assertEquals($changedUser->name, $savedUser->name);
+        $this->assertDatabaseHas('users', $updatedUserData);
     }
 
     public function testDestroy()
     {
         $user = factory(User::class)->create();
         $response = $this->actingAs($user)->delete(route('account.destroy', $user));
+        $response->assertSessionHasNoErrors();
         $response->assertStatus(302);
         $this->assertDatabaseMissing('users', ['id', $user->id]);
     }

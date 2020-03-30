@@ -15,12 +15,12 @@ class TaskStatusController extends Controller
     public function index()
     {
         $taskStatuses = TaskStatus::paginate(2);
-        return view('task.status.index', compact('taskStatuses'));
+        return view('status.index', compact('taskStatuses'));
     }
 
     public function create()
     {
-        return view('task.status.create');
+        return view('status.create');
     }
 
     public function store(Request $request)
@@ -39,7 +39,7 @@ class TaskStatusController extends Controller
 
     public function edit(TaskStatus $taskStatus)
     {
-        return view('task.status.edit', compact('taskStatus'));
+        return view('status.edit', compact('taskStatus'));
     }
     
     public function update(Request $request, TaskStatus $taskStatus)

@@ -16,6 +16,5 @@ Route::get('/', 'HomeController@index')->name('home');
 Auth::routes();
 Route::resource('/users', 'UserController')->only(['index', 'show']);
 Route::resource('/my/account', 'MyAccountController')->except(['create', 'store']);
-Route::resource('/tasks/task_statuses', 'TaskStatusController')->except(['show']);
+Route::resource('/task_statuses', 'TaskStatusController')->except(['show']);
 Route::resource('/tasks', 'TaskController');
-Route::resource('/tasks.tags', 'TaskTagController')->only(['store', 'destroy']);

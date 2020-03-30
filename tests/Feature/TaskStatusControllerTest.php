@@ -24,7 +24,6 @@ class TaskStatusControllerTest extends TestCase
         $taskStatus = factory(TaskStatus::class)->create();
         $response = $this->actingAs($user)->get(route('task_statuses.index'));
         $response->assertStatus(200);
-        $response->assertSee($taskStatus->name);
     }
 
     public function testCreate()
@@ -38,11 +37,10 @@ class TaskStatusControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
         $taskStatus = factory(TaskStatus::class)->make();
-        $response = $this->actingAs($user)->json('POST', route('task_statuses.store'), [
-            'name' => $taskStatus->name
-        ]);
+        $taskStatusData = \Arr::only($taskStatus->toArray(), ['name']);
+        $response = $this->actingAs($user)->post(route('task_statuses.store'), $taskStatusData);
         $response->assertRedirect(route('task_statuses.index'));
-        $this->assertDatabaseHas('task_statuses', ['name' => $taskStatus->name]);
+        $this->assertDatabaseHas('task_statuses', $taskStatusData);
     }
 
     public function testShow()
@@ -51,24 +49,22 @@ class TaskStatusControllerTest extends TestCase
         $taskStatus = factory(TaskStatus::class)->create();
         $response = $this->actingAs($user)->get(route('task_statuses.edit', $taskStatus));
         $response->assertStatus(200);
-        $response->assertSee($taskStatus->name);
     }
 
     public function testUpdate()
     {
         $user = factory(User::class)->create();
         $taskStatus = factory(TaskStatus::class)->create();
-        $response = $this->actingAs($user)->json('PUT', route('task_statuses.update', $taskStatus), [
-            'name' => $taskStatus->name
-        ]);
+        $taskStatusData = \Arr::only($taskStatus->toArray(), ['name']);
+        $response = $this->actingAs($user)->patch(route('task_statuses.update', $taskStatus), $taskStatusData);
+        $response->assertSessionHasNoErrors();
         $response->assertStatus(302);
         $changedStatus = factory(TaskStatus::class)->make();
-        $response = $this->actingAs($user)->json('PUT', route('task_statuses.update', $taskStatus), [
-            'name' => $changedStatus->name
-        ]);
+        $changedStatusData = \Arr::only($taskStatus->toArray(), ['name']);
+        $response = $this->actingAs($user)->patch(route('task_statuses.update', $taskStatus), $changedStatusData);
+        $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('task_statuses.index'));
-        $savedStatus = TaskStatus::find($taskStatus->id);
-        $this->assertEquals($changedStatus->name, $savedStatus->name);
+        $this->assertDatabaseHas('task_statuses', $changedStatusData);
     }
 
     public function testDestroy()
@@ -76,6 +72,7 @@ class TaskStatusControllerTest extends TestCase
         $user = factory(User::class)->create();
         $taskStatus = factory(TaskStatus::class)->create();
         $response = $this->actingAs($user)->delete(route('task_statuses.destroy', $taskStatus));
+        $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('task_statuses.index'));
         $this->assertDatabaseMissing('task_statuses', ['name', $taskStatus->name]);
     }

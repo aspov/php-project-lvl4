@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\TaskStatus;
@@ -10,8 +9,6 @@ use App\User;
 
 class TaskStatusControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testAuth()
     {
         $response = $this->get(route('task_statuses.index'));
@@ -55,12 +52,8 @@ class TaskStatusControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
         $taskStatus = factory(TaskStatus::class)->create();
-        $taskStatusData = \Arr::only($taskStatus->toArray(), ['name']);
-        $response = $this->actingAs($user)->patch(route('task_statuses.update', $taskStatus), $taskStatusData);
-        $response->assertSessionHasNoErrors();
-        $response->assertStatus(302);
         $changedStatus = factory(TaskStatus::class)->make();
-        $changedStatusData = \Arr::only($taskStatus->toArray(), ['name']);
+        $changedStatusData = \Arr::only($changedStatus->toArray(), ['name']);
         $response = $this->actingAs($user)->patch(route('task_statuses.update', $taskStatus), $changedStatusData);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('task_statuses.index'));

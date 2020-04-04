@@ -2,14 +2,11 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\User;
 
 class UserControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testIndex()
     {
         $response = $this->get(route('users.index'));

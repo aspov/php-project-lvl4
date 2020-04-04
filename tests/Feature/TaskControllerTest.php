@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\User;
@@ -10,8 +9,6 @@ use App\Task;
 
 class TaskControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testAuth()
     {
         $response = $this->get(route('tasks.index'));

@@ -16,7 +16,7 @@ class CreateTaskTagTable extends Migration
         Schema::create('task_tag', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('task_id');
-            $table->foreign('task_id')->references('id')->on('tasks');
+            $table->foreign('task_id')->references('id')->on('tasks')->onDelete('cascade');
             $table->integer('tag_id');
             $table->foreign('tag_id')->references('id')->on('tags');
             $table->timestamps();

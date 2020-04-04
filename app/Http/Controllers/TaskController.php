@@ -8,6 +8,8 @@ use App\Task;
 use App\TaskTag;
 use App\TaskStatus;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class TaskController extends Controller
 {
@@ -19,40 +21,28 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         //index
-        $tags = Tag::whereHas('tasks')->orderBy('name')->get();
+        $tag = Tag::where('name', $request->tag)->first();
+        
         $users = User::orderBy('name')->get();
         $taskStatuses = TaskStatus::orderBy('name')->get();
-        // если не заданы параметры поиска
-        if (count($request->all()) == 0) {
+        //default filter
+        if (!$request->filter) {
             $tasks = Task::paginate(10);
-            return view('task.index', compact('tasks', 'taskStatuses', 'users', 'tags'));
+            return view('task.index', compact('tasks', 'taskStatuses', 'users'));
         }
-       //search
-        $query = Task::query();
-        if ($request->tag_id) {
-            $query->whereHas('tags', function ($q) use ($request) {
-                return $q->where('tag_id', $request->tag_id);
-            });
-        }
-        if ($request->status_id) {
-            $query->where('status_id', $request->status_id);
-        }
-        if ($request->assigned_to_id) {
-            $query->where('assigned_to_id', $request->assigned_to_id);
-        }
-        if ($request->myTasks) {
-            $query->where('creator_id', \Auth::user()->id);
-        }
-        $tasks = $query->paginate(10);
-        return view('task.index', compact('tasks', 'taskStatuses', 'users', 'tags'));
+        //search
+        $tasks = QueryBuilder::for(Task::class)
+        ->allowedIncludes(['tags'])
+        ->allowedFilters('status_id', 'assigned_to_id', 'tags.name', 'creator_id')
+        ->paginate(10);
+        return view('task.index', compact('tasks', 'taskStatuses', 'users'));
     }
 
     public function create()
     {
         $users = User::orderBy('name')->get();
-        $defaultTaskStatus = TaskStatus::firstOrCreate(['name' => 'новый']);
         $taskStatuses = TaskStatus::orderBy('name')->get();
-        return view('task.create', compact('taskStatuses', 'defaultTaskStatus', 'users'));
+        return view('task.create', compact('taskStatuses', 'users'));
     }
     
     public function store(Request $request)
@@ -68,14 +58,13 @@ class TaskController extends Controller
         $task->creator()->associate(\Auth::user());
         $task->save();
 
-        $tagNames = collect(explode(" ", $request->tags))->filter(function ($item, $key) {
-            return trim($item);
-        })->unique()->all();
-
-        foreach ($tagNames as $tagName) {
-            $tag = \App\Tag::firstOrCreate(['name' => $tagName]);
-            $task->tags()->attach($tag);
-        }
+        //add task tags
+        $tagsIDs = collect(explode(" ", $request->tags))->reduce(function ($carry, $item) {
+            $tag = Tag::firstOrCreate(['name' => trim($item)]);
+            $carry[] = $tag->id;
+            return $carry;
+        });
+        $task->tags()->sync($tagsIDs);
 
         flash(__('Added'))->success();
         return redirect()->route('tasks.index');
@@ -88,29 +77,28 @@ class TaskController extends Controller
     
     public function edit(Task $task)
     {
-        $taskTags = collect($task->tags()->get())->implode('name', ' ');
-        $tags = Tag::orderBy('name')->get();
-        $users = User::orderBy('name')->get();
+        $this->authorize('edit-task', $task);
         $taskStatuses = TaskStatus::orderBy('name')->get();
-        $defaultTaskStatus = TaskStatus::firstOrCreate(['name' => 'новый']);
-        return view('task.edit', compact('task', 'defaultTaskStatus', 'taskStatuses', 'users', 'tags', 'taskTags'));
+        $users = User::orderBy('name')->get();
+        $tags = collect($task->tags()->get())->implode('name', ' ');
+        return view('task.edit', compact('task', 'taskStatuses', 'users', 'tags'));
     }
 
     public function update(Request $request, Task $task)
     {
+        $this->authorize('update-task', $task);
         $task->fill($request->all());
         $task->save();
 
-        $tagNames = collect(explode(" ", $request->tags))->filter(function ($item, $key) {
-            return trim($item);
-        })->unique()->all();
+        //add task tags
+        $tagsIDs = collect(explode(" ", $request->tags))->reduce(function ($carry, $item) {
+            $tag = Tag::firstOrCreate(['name' => trim($item)]);
+            $carry[] = $tag->id;
+            return $carry;
+        });
+        $task->tags()->sync($tagsIDs);
 
-        $task->tags()->detach();
-        foreach ($tagNames as $tagName) {
-            $tag = \App\Tag::firstOrCreate(['name' => $tagName]);
-            $task->tags()->attach($tag);
-        }
-        //уделине неактивных тегов
+        //update tags
         Tag::whereDoesntHave('tasks')->delete();
  
         flash(__('Saved'))->success();
@@ -119,9 +107,8 @@ class TaskController extends Controller
     
     public function destroy(Task $task)
     {
-        $task->tags()->detach();
         $task->delete();
-        //уделине неактивных тегов
+        //update tags
         Tag::whereDoesntHave('tasks')->delete();
         
         flash(__('Deleted'))->success();

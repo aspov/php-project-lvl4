@@ -20,14 +20,7 @@
                     <div class="col-md-4">            
                         <select id="status_id" class="form-control form-control-sm" name="status_id" required>
                             @foreach ($taskStatuses as $taskStatus)
-                                <option                               
-                                    @if (old('status_id'))
-                                        selected 
-                                    @elseif (old('status_id') == null and $taskStatus->id == $defaultTaskStatus->id)
-                                        selected 
-                                    @endif    
-                                    value ="{{ $taskStatus->id }}"> {{ $taskStatus->name }}
-                                </option>                        
+                                <option @if ($taskStatus->name == 'новый') selected @endif value ="{{ $taskStatus->id }}">{{ $taskStatus->name }}</option>                        
                             @endforeach
                         </select>
                     </div>

@@ -24,7 +24,17 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        
+        Gate::define('update-task', function ($user, $task) {
+            return $user->id === $task->creator->id;
+        });
 
-        //
+        Gate::define('edit-task', function ($user, $task) {
+            return $user->id === $task->creator->id;
+        });
+
+        Gate::define('delete-task', function ($user, $task) {
+            return $user->id === $task->creator->id;
+        });
     }
 }

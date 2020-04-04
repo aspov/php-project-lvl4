@@ -11,6 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        DB::table('task_statuses')->insert([
+            'name' => 'новый'
+        ]);
     }
 }

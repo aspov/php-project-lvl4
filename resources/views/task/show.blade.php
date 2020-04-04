@@ -41,9 +41,13 @@
                             {{ $tag->name }}                           
                         @endforeach
                 </div>
-            </div>            
-            <a class="btn btn-primary mt-2" href="{{ route('tasks.edit', $task) }}" data-method="get" rel="nofollow">{{ __('Edit') }}</a>
-            <a class="btn btn-primary mt-2" href="{{ route('tasks.destroy', $task) }}" data-confirm="{{ __('Are you sure?') }}" data-method="delete" rel="nofollow">{{ __('Delete') }}</a>   
+            </div>
+            @can('edit-task', $task)
+                <a class="btn btn-primary mt-2" href="{{ route('tasks.edit', $task) }}" data-method="get" rel="nofollow">{{ __('Edit') }}</a>            
+            @endcan
+            @can('delete-task', $task)
+                <a class="btn btn-primary mt-2" href="{{ route('tasks.destroy', $task) }}" data-confirm="{{ __('Are you sure?') }}" data-method="delete" rel="nofollow">{{ __('Delete') }}</a>
+            @endcan
         </div>
     </div>    
 </div> 

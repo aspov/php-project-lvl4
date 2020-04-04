@@ -20,14 +20,7 @@
                     <div class="col-md-4">            
                         <select id="status_id" class="form-control form-control-sm" name="status_id" required>
                             @foreach ($taskStatuses as $taskStatus)
-                                <option                               
-                                    @if (old('status_id'))
-                                        selected 
-                                    @elseif (old('status_id') == null and $taskStatus->id == $defaultTaskStatus->id)
-                                        selected 
-                                    @endif    
-                                    value ="{{ $taskStatus->id }}"> {{ $taskStatus->name }}
-                                </option>                        
+                                <option @if ($task->status->name == $taskStatus->name) selected @endif value ="{{ $taskStatus->id }}"> {{ $taskStatus->name }}</option>                        
                             @endforeach
                         </select>
                     </div>
@@ -55,7 +48,7 @@
                 <div class="form-group row">
                     <label for="tags" class="col-md-2 col-form-label col-form-label-sm text-md-left">{{ __('Tags') }}</label>
                     <div class="col-md-4">
-                        <input id="tags" type="text" class="form-control form-control-sm" value="{{ $taskTags }}" name="tags" placeholder="{{  __('for example (one two three)') }}">                        
+                        <input id="tags" type="text" class="form-control form-control-sm" value="{{ $tags }}" name="tags" placeholder="{{  __('for example (one two three)') }}">                        
                     </div>
                 </div>  
                         

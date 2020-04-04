@@ -11,7 +11,7 @@
                     @csrf
                     <div class="form-group row"> 
                         <div class="col-md-4">
-                            <input id="name" type="text" class="form-control" name="name" value="{{ $taskStatus->name }}" required autocomplete="name" autofocus>
+                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="@error('name'){{ old('name') }}@else{{ $taskStatus->name }}@enderror" required autofocus>
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

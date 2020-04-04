@@ -2,14 +2,11 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\User;
 
 class MyAccountControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function testAuth()
     {
         $response = $this->get(route('account.index'));
@@ -33,11 +30,6 @@ class MyAccountControllerTest extends TestCase
     public function testUpdate()
     {
         $user = factory(User::class)->create();
-        $userData = \Arr::only($user->toArray(), ['name', 'email']);
-        $response = $this->actingAs($user)->patch(route('account.update', $user), $userData);
-        $response->assertSessionHasNoErrors();
-        $response->assertStatus(200);
-        
         $updatedUser = factory(User::class)->make();
         $updatedUserData = \Arr::only($updatedUser->toArray(), ['name', 'email']);
         $response = $this->actingAs($user)->patch(route('account.update', $user), $updatedUserData);

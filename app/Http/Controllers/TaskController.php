@@ -22,6 +22,13 @@ class TaskController extends Controller
    
     public function index(Request $request)
     {
+        // installs global error and exception handlers
+        Rollbar::init(
+            array(
+                'access_token' => '45c4f29d2a0242e89b5b523d27d7d7af',
+                'environment' => 'production'
+            )
+        );
         try {
             //index
             $tag = Tag::where('name', $request->tag)->first();

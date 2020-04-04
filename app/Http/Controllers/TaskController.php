@@ -32,7 +32,7 @@ class TaskController extends Controller
         //search
         $tasks = QueryBuilder::for(Task::class)
         ->allowedIncludes(['tags'])
-        ->allowedFilters('status_id', 'assigned_to_id', 'tags.name', 'creator_id')
+        ->allowedFilters(['status_id', 'assigned_to_id', 'tags.name', 'creator_id'])
         ->paginate(10);
         return view('task.index', compact('tasks', 'taskStatuses', 'users'));
     }

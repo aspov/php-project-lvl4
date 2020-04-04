@@ -10,7 +10,7 @@
                 <div class="form-group row">
                     <label for="tag" class="col-md-2 col-form-label col-form-label-sm text-md-left">{{ __('Tag') }}</label>
                     <div class="col-md-4">
-                        <input id="tag" type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" name="filter[tags.name]" value="{{ isset(request()->filter['tags.name']) }}">                                  
+                        <input id="tag" type="text" class="form-control form-control-sm @error('name') is-invalid @enderror" name="filter[tags.name]" value="{{ request()->filter['tags.name'] ?? ''  }}">                                  
                     </div>
                 </div>
 
@@ -21,7 +21,7 @@
                             <option value="">Choose...</option> 
                             @foreach ($taskStatuses as $taskStatus)
                                 <option 
-                                @if ($taskStatus->id == isset(request()->filter['status_id'])) selected @endif
+                                @if ($taskStatus->id == (request()->filter['status_id'] ?? '')) selected @endif
                                 value="{{ $taskStatus->id }}">{{ $taskStatus->name }}</option>      
                             @endforeach 
                         </select>
@@ -35,7 +35,7 @@
                             <option value="">Choose...</option> 
                             @foreach ($users as $user)
                                 <option 
-                                @if ($user->id == isset(request()->filter['assigned_to_id'])) selected @endif
+                                @if ($user->id == (request()->filter['assigned_to_id'] ?? '')) selected @endif
                                 value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach 
                         </select>
@@ -43,7 +43,7 @@
                 </div>
                 
                 <div class="form-check">
-                    <input type="checkbox" name="filter[creator_id]" class="form-check-input" value="{{ Auth::user()->id }}" id="myTask" @if (isset(request()->filter['creator_id'])) checked @endif>
+                    <input type="checkbox" name="filter[creator_id]" class="form-check-input" value="{{ Auth::user()->id }}" id="myTask" @if (request()->filter['creator_id'] ?? '') checked @endif>
                     <label class="form-check-label" for="myTask">{{ __('My tasks') }}</label>
                 </div>        
                     

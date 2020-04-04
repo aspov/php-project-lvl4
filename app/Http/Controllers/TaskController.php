@@ -21,8 +21,8 @@ class TaskController extends Controller
     public function index(Request $request)
     {
         //index
+        #dd($request->all());
         $tag = Tag::where('name', $request->tag)->first();
-        
         $users = User::orderBy('name')->get();
         $taskStatuses = TaskStatus::orderBy('name')->get();
         //default filter

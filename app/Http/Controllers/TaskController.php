@@ -10,6 +10,8 @@ use App\TaskStatus;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
+use Rollbar\Rollbar;
+use Rollbar\Payload\Level;
 
 class TaskController extends Controller
 {
@@ -20,22 +22,26 @@ class TaskController extends Controller
    
     public function index(Request $request)
     {
-        //index
-        $tag = Tag::where('name', $request->tag)->first();
-        
-        $users = User::orderBy('name')->get();
-        $taskStatuses = TaskStatus::orderBy('name')->get();
-        //default filter
-        if (!$request->filter) {
-            $tasks = Task::paginate(10);
+        try {
+            //index
+            $tag = Tag::where('name', $request->tag)->first();
+            
+            $users = User::orderBy('name')->get();
+            $taskStatuses = TaskStatus::orderBy('name')->get();
+            //default filter
+            if (!$request->filter) {
+                $tasks = Task::paginate(10);
+                return view('task.index', compact('tasks', 'taskStatuses', 'users'));
+            }
+            //search
+            $tasks = QueryBuilder::for(Task::class)
+            ->allowedIncludes(['tags'])
+            ->allowedFilters('status_id', 'assigned_to_id', 'tags.name', 'creator_id')
+            ->paginate(10);
             return view('task.index', compact('tasks', 'taskStatuses', 'users'));
+        } catch (\Exception $e) {
+            Rollbar::log(Level::ERROR, $e);
         }
-        //search
-        $tasks = QueryBuilder::for(Task::class)
-        ->allowedIncludes(['tags'])
-        ->allowedFilters('status_id', 'assigned_to_id', 'tags.name', 'creator_id')
-        ->paginate(10);
-        return view('task.index', compact('tasks', 'taskStatuses', 'users'));
     }
 
     public function create()

@@ -13,6 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
+        \Task::class => \TaskPolicy::class
         // 'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
@@ -25,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         
-        Gate::define('update-task', function ($user, $task) {
+        /* Gate::define('update-task', function ($user, $task) {
             return $user->id === $task->creator->id;
         });
 
@@ -35,6 +36,6 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('delete-task', function ($user, $task) {
             return $user->id === $task->creator->id;
-        });
+        }); */
     }
 }

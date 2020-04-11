@@ -46,7 +46,8 @@ class TaskController extends Controller
     {
         $users = User::orderBy('name')->get();
         $taskStatuses = TaskStatus::orderBy('name')->get();
-        return view('task.create', compact('taskStatuses', 'users'));
+        $defaultStatus = TaskStatus::where('name', 'новый')->get();
+        return view('task.create', compact('taskStatuses', 'users', 'defaultStatus'));
     }
     
     public function store(Request $request)
@@ -63,13 +64,14 @@ class TaskController extends Controller
         $task->save();
 
         //add task tags
-        $tagsIDs = collect(explode(" ", $request->tags))->reduce(function ($carry, $item) {
-            $tag = Tag::firstOrCreate(['name' => trim($item)]);
-            $carry[] = $tag->id;
-            return $carry;
+        \DB::beginTransaction();
+        $tagsIDs = collect(explode(" ", $request->tags))->map(function ($tagName) {
+            $tag = Tag::firstOrCreate(['name' => trim($tagName)]);
+            return $tag->id;
         });
         $task->tags()->sync($tagsIDs);
-
+        \DB::commit();
+        
         flash(__('Added'))->success();
         return redirect()->route('tasks.index');
     }
@@ -81,7 +83,6 @@ class TaskController extends Controller
     
     public function edit(Task $task)
     {
-        $this->authorize('edit-task', $task);
         $taskStatuses = TaskStatus::orderBy('name')->get();
         $users = User::orderBy('name')->get();
         $tags = collect($task->tags()->get())->implode('name', ' ');
@@ -90,20 +91,22 @@ class TaskController extends Controller
 
     public function update(Request $request, Task $task)
     {
-        $this->authorize('update-task', $task);
+        $this->validate($request, [
+            'name' => 'required',
+            'status_id' => 'required',
+            'assigned_to_id' => 'required'
+        ]);
         $task->fill($request->all());
         $task->save();
 
         //add task tags
-        $tagsIDs = collect(explode(" ", $request->tags))->reduce(function ($carry, $item) {
-            $tag = Tag::firstOrCreate(['name' => trim($item)]);
-            $carry[] = $tag->id;
-            return $carry;
+        \DB::beginTransaction();
+        $tagsIDs = collect(explode(" ", $request->tags))->map(function ($tagName) {
+            $tag = Tag::firstOrCreate(['name' => trim($tagName)]);
+            return $tag->id;
         });
         $task->tags()->sync($tagsIDs);
-
-        //update tags
-        Tag::whereDoesntHave('tasks')->delete();
+        \DB::commit();
  
         flash(__('Saved'))->success();
         return redirect()->route('tasks.edit', $task);
@@ -112,9 +115,6 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         $task->delete();
-        //update tags
-        Tag::whereDoesntHave('tasks')->delete();
-        
         flash(__('Deleted'))->success();
         return redirect()->route('tasks.index');
     }

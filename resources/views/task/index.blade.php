@@ -73,11 +73,7 @@
                             <div class="col-sm"><a href="{{ route('users.show', $task->creator) }}"> {{ $task->creator->name }} </a></div> 
                             <div class="col-sm">{{ $task->created_at }}</div> 
                             <div class="col-sm"><a href="{{ route('users.show', $task->assignedTo) }}"> {{ $task->assignedTo->name }} </a></div> 
-                            <div class="col-sm">
-                                @foreach ($task->tags as $tag)                                        
-                                    {{ $tag->name }}                                         
-                                @endforeach 
-                            </div>
+                            <div class="col-sm">{{ $task->tags->implode('name', ' ') }}</div>
                         </div>
                     @endforeach
                     @if (count($tasks) == 0)                    

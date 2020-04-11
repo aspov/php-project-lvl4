@@ -19,8 +19,10 @@ class TaskControllerTest extends TestCase
     {
         $user = factory(User::class)->create();
         $task = factory(Task::class)->create();
-        $response = $this->actingAs($user)->get(route('tasks.index'));
+        $response = $this->actingAs($user)->get(route('tasks.index'), ['filter' => ['myTask' => true]]);
         $response->assertStatus(200);
+        $tasks = $response->viewData('tasks');
+        $this->assertTrue(count($tasks) > 0);
     }
 
     public function testCreate()
@@ -54,7 +56,7 @@ class TaskControllerTest extends TestCase
         $user = factory(User::class)->create();
         $task = factory(Task::class)->create();
         $updatedTask = factory(Task::class)->make();
-        $updatedTaskData = \Arr::only($updatedTask->toArray(), ['name']);
+        $updatedTaskData = \Arr::only($updatedTask->toArray(), ['name', 'status_id', 'assigned_to_id']);
         $response = $this->actingAs($user)->patch(route('tasks.update', $task), $updatedTaskData);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect(route('tasks.edit', $task));

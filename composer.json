@@ -13,6 +13,7 @@
         "laracasts/flash": "^3.0",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",
+        "laravelcollective/html": "^6.1",
         "nicolaslopezj/searchable": "1.*",
         "rollbar/rollbar": "~1.5",
         "spatie/laravel-query-builder": "^2.8"

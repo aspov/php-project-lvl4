@@ -4,13 +4,12 @@
 <div class="container">
     <div class="card">    
         <div class="card-header">{{ __('New status') }}</div>    
-        <div class="card-body"> 
-            <form method="POST" action="{{ route('task_statuses.store') }}">
-                @csrf
-                <div class="form-group  row">
-                    <label for="name" class="col-md-1 col-form-label text-md-left">{{ __('Name') }}</label>
+        <div class="card-body">
+            {{ Form::open(['url' => route('task_statuses.store'), 'method' => 'post']) }}
+                <div class="form-group row">
+                    {{ Form::label('name', __('Name'),  ['class' => 'col-md-1 col-form-label col-form-label-sm text-md-left']) }}            
                     <div class="col-md-4">
-                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="@error('name'){{ old('name') }}@enderror" required autofocus>
+                        {{ Form::text('name', null, ['class' => 'form-control form-control-sm' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => __('New name')]) }}
                         @error('name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -18,21 +17,9 @@
                         @enderror
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary mt-2">
-                    {{ __('Add') }}
-                </button>
-            </form>
+            {{ Form::submit(__('Add'), ['class' => 'btn btn-primary']) }}
+            {{ Form::close() }}
         </div>
     </div>
 </div> 
-@endsection
-
-
-
-
-
-
-
-@section('menu_content')
-
 @endsection

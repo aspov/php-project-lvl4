@@ -7,9 +7,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="csrf-param" content="_token" />
-    <title>{{ config('app.name', 'Task Manager') }}</title>   
-    <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">   
-    <script src="{{ secure_asset('js/app.js') }}" defer></script> 
+    <title>{{ config('app.name', 'Task Manager') }}</title>
+    <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
+    <script src="{{ secure_asset('js/app.js') }}" defer></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -33,7 +33,7 @@
                         <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
+                        <li class="nav-item {{ request()->routeIs('tasks.index') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('tasks.index') }}">{{ __('Tasks') }}</a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('task_statuses.index') ? 'active' : '' }}">

@@ -42,10 +42,10 @@
                         @endforeach
                 </div>
             </div>
-            @can('edit-task', $task)
+            @can('update', $task)
                 <a class="btn btn-primary mt-2" href="{{ route('tasks.edit', $task) }}" data-method="get" rel="nofollow">{{ __('Edit') }}</a>            
             @endcan
-            @can('delete-task', $task)
+            @can('delete', $task)
                 <a class="btn btn-primary mt-2" href="{{ route('tasks.destroy', $task) }}" data-confirm="{{ __('Are you sure?') }}" data-method="delete" rel="nofollow">{{ __('Delete') }}</a>
             @endcan
         </div>

@@ -83,6 +83,7 @@ class TaskController extends Controller
     
     public function edit(Task $task)
     {
+        $this->authorize('update', $task);
         $taskStatuses = TaskStatus::orderBy('name')->get();
         $users = User::orderBy('name')->get();
         $tags = collect($task->tags()->get())->implode('name', ' ');
@@ -91,6 +92,7 @@ class TaskController extends Controller
 
     public function update(Request $request, Task $task)
     {
+        $this->authorize('update', $task);
         $this->validate($request, [
             'name' => 'required',
             'status_id' => 'required',
@@ -114,6 +116,7 @@ class TaskController extends Controller
     
     public function destroy(Task $task)
     {
+        $this->authorize('delete', $task);
         $task->delete();
         flash(__('Deleted'))->success();
         return redirect()->route('tasks.index');

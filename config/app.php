@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'CheckListApp'),
+    'name' => env('APP_NAME', 'Task Manager'),
 
     /*
     |--------------------------------------------------------------------------

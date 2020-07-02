@@ -7,9 +7,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="csrf-param" content="_token" />
-    <title>{{ config('app.name', 'Task Manager') }}</title>
-    <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
-    <script src="{{ secure_asset('js/app.js') }}" defer></script>
+    <title>{{ config('app.name', 'CheckListApp') }}</title>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/app.js') }}" defer></script>
     
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,9 +20,8 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Task Manager') }}
-                </a>                
-                    
+                    {{ config('app.name', 'CheckListApp') }}
+                </a>                    
        
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -34,14 +33,13 @@
                         <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('tasks.index') ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('tasks.index') }}">{{ __('Tasks') }}</a>
+                        @hasallroles('super-admin|admin')
+                        <li class="nav-item {{ request()->routeIs('admin.*') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('admin.users.index') }}">{{ __('Admin') }}</a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('task_statuses.index') ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('task_statuses.index') }}">{{ __('Statuses') }}</a>
-                        </li>
-                        <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('users.index') }}">{{ __('Users') }}</a>
+                        @endhasallroles
+                        <li class="nav-item {{ request()->routeIs('check_lists.index') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('check_lists.index') }}">{{ __('CheckLists') }}</a>
                         </li>
                     </ul>
 

@@ -14,7 +14,11 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 Auth::routes();
-Route::resource('/users', 'UserController')->only(['index', 'show']);
 Route::resource('/my/account', 'MyAccountController')->except(['create', 'store']);
-Route::resource('/task_statuses', 'TaskStatusController')->except(['show']);
-Route::resource('/tasks', 'TaskController');
+Route::name('admin.')->prefix('admin')->middleware('auth')->group(function () {
+    Route::resource('/admins', 'Admin\AdminController')->middleware('role:super-admin');
+    Route::resource('/users', 'Admin\UserController')->middleware('role:super-admin|admin');
+    Route::resource('/check_lists', 'Admin\CheckListController')->middleware('role:super-admin|admin');
+});
+Route::resource('/check_lists', 'CheckListController');
+Route::resource('/check_lists.check_list_item', 'CheckListItemController')->only(['create', 'update', 'destroy']);
